@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, incrementPage } from '../../redux/slices/userSlice';
 import './RandomUsers.scss';
+import { getWeatherIcon } from '../../utils/weatherIcon';
 
 const RandomUsers = () => {
 	const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const RandomUsers = () => {
 		dispatch(incrementPage());
 	};
 
-	console.log(users);
+	console.log(users.map(user => user.weather));
 
 	if (status === 'loading' && users.length === 0) return <p>Loading users...</p>;
 	if (status === 'failed') return <p>Error: {error}</p>;
@@ -31,6 +32,7 @@ const RandomUsers = () => {
 						{user.name.first} {user.name.last}
 					</div>
 					<div className='randomUsers__item__email'>{user.email}</div>
+
 					<div className='randomUsers__item__sex'>{user.gender}</div>
 
 					<div className='randomUsers__item__location'>
@@ -40,6 +42,7 @@ const RandomUsers = () => {
 						<button className='randomUsers__item__button'>Save</button>
 						<button className='randomUsers__item__button'>Weather</button>
 					</div>
+					{user.weather ? <p className='randomUsers__item__weatherIcon'> {getWeatherIcon(user.weather.current_weather.weathercode)}</p> : <p>No weather data available</p>}
 				</div>
 			))}
 			<button className='randomUsers__button' onClick={handleLoadMore}>

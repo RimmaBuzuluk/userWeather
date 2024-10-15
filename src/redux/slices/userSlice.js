@@ -1,9 +1,30 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const fetchWeather = async (latitude, longitude) => {
+	const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m`);
+	const data = await response.json();
+	return data;
+};
+
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async (page = 1) => {
 	const response = await fetch(`https://randomuser.me/api/?results=10&page=${page}`);
-	const data = await response.json();
-	return data.results;
+	const users = await response.json();
+
+	const usersWithWeather = await Promise.all(
+		users.results.map(async user => {
+			const { latitude, longitude } = user.location.coordinates;
+
+			try {
+				const weather = await fetchWeather(latitude, longitude);
+				return { ...user, weather };
+			} catch (error) {
+				console.error('Failed to fetch weather:', error);
+				return { ...user, weather: null };
+			}
+		})
+	);
+
+	return usersWithWeather;
 });
 
 const usersSlice = createSlice({
