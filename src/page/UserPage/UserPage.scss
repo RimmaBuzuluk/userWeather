@@ -1,0 +1,44 @@
+@import '../../style/mixins.scss';
+.user {
+	@include page-grid;
+	@include container;
+	font-size: 20px;
+	margin-top: 25px;
+	&__information {
+		display: flex;
+		justify-content: space-between;
+		&__mainImg {
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			object-fit: cover;
+			overflow: hidden;
+			display: block;
+		}
+		&__items {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		&__item {
+			background-color: white;
+			border-radius: 10px;
+			padding: 5px;
+			border: 1px solid #000;
+		}
+	}
+	&__button {
+		// grid-column: 1/-1;
+		margin-top: 20px;
+		height: 40px;
+		background-color: white;
+		border: 1px solid #000;
+		padding: 5px;
+		border-radius: 10px;
+		font-weight: 700;
+		&--weather {
+			background-color: rgb(86, 224, 224);
+			color: #fff;
+		}
+	}
+}
