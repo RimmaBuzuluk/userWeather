@@ -59,13 +59,19 @@
 			font-size: 14px;
 			color: #666;
 		}
+		&__weather {
+			font-size: 8px;
+			margin-bottom: 8px;
+			color: #666;
+			@include on-desktop {
+				font-size: 12px;
+			}
+		}
 		&__weatherIcon {
 			position: absolute;
 			top: 0px;
 			right: 0px;
-			// width: 50px;
 			font-size: 34px;
-			// background-color: aquamarine;
 			margin: 0;
 		}
 		&__buttons {

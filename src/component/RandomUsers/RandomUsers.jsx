@@ -18,7 +18,7 @@ const RandomUsers = () => {
 		dispatch(incrementPage());
 	};
 
-	console.log(users.map(user => user.weather));
+	// console.log(users.map(user => ));
 
 	if (status === 'loading' && users.length === 0) return <p>Loading users...</p>;
 	if (status === 'failed') return <p>Error: {error}</p>;
@@ -27,6 +27,13 @@ const RandomUsers = () => {
 		<div className='randomUsers'>
 			{users.map(user => (
 				<div key={user.login.uuid} className='randomUsers__item'>
+					{user.weather && (
+						<div className='randomUsers__item__weather'>
+							<div>Current temperature: {user.weather.current_weather.temperature}</div>
+							<div>Max temperature: {Math.max(...user.weather.hourly.temperature_2m)}</div>
+							<div>Min temperature: {Math.min(...user.weather.hourly.temperature_2m)}</div>
+						</div>
+					)}
 					<img className='randomUsers__item__photo' src={user.picture.thumbnail} alt={`${user.name.first} ${user.name.last}`} />
 					<div className='randomUsers__item__name'>
 						{user.name.first} {user.name.last}
@@ -38,6 +45,7 @@ const RandomUsers = () => {
 					<div className='randomUsers__item__location'>
 						{user.location.city}, {user.location.country}
 					</div>
+
 					<div className='randomUsers__item__buttons'>
 						<button className='randomUsers__item__button'>Save</button>
 						<button className='randomUsers__item__button'>Weather</button>
