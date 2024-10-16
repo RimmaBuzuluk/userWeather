@@ -80,6 +80,7 @@
 			margin-top: auto;
 			gap: 10px;
 			width: 100%;
+
 			@include on-tablet {
 				flex-direction: row;
 				align-items: center;
@@ -100,9 +101,15 @@
 				background-color: #666;
 				color: white;
 			}
-			&:active {
+			&:active,
+			&_unsave {
 				background-color: #4b4b4b;
 				color: white;
+				border-radius: 500px;
+				width: 100%;
+				@include on-tablet {
+					width: 80px;
+				}
 			}
 		}
 	}
