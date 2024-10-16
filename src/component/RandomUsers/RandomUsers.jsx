@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, incrementPage } from '../../redux/slices/userSlice';
 import './RandomUsers.scss';
 import { getWeatherIcon } from '../../utils/weatherIcon';
 import { addSavedUser } from '../../redux/slices/savedUserSlice';
 import classNames from 'classnames';
+import { CustomerModal } from '../Modal/Modal';
 
 const RandomUsers = () => {
 	const dispatch = useDispatch();
 	const { users, status, error, page } = useSelector(state => state.users);
 	const savedUsers = useSelector(state => state.savedUsers.savedUsers);
+	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [selectedUser, setSelectedUser] = useState(null);
 
 	useEffect(() => {
 		if (status === 'idle' || status === 'succeeded') {
@@ -23,6 +26,11 @@ const RandomUsers = () => {
 
 	const handlSaveUser = user => {
 		dispatch(addSavedUser(user));
+	};
+
+	const handleOpenModal = user => {
+		setSelectedUser(user);
+		setModalIsOpen(true);
 	};
 
 	if (status === 'loading' && users.length === 0) return <p>Loading users...</p>;
@@ -61,7 +69,27 @@ const RandomUsers = () => {
 						>
 							{savedUsers.some(savedUser => savedUser.login.uuid === user.login.uuid) ? 'Unsave' : 'Save'}
 						</button>
-						<button className='randomUsers__item__button'>Weather</button>
+						<button className='randomUsers__item__button' onClick={() => handleOpenModal(user)}>
+							Weather
+						</button>
+						<CustomerModal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+							{selectedUser && (
+								<div>
+									<h2>
+										{selectedUser.name.first} {selectedUser.name.last}
+									</h2>
+									<h3>
+										{selectedUser.location.country} - {selectedUser.location.city}
+									</h3>
+									<p>Current Temperature: {selectedUser.weather.current_weather.temperature}°C</p>
+									<p>Max Temperature: {Math.max(...selectedUser.weather.hourly.temperature_2m)}°C</p>
+									<p>Min Temperature: {Math.min(...selectedUser.weather.hourly.temperature_2m)}°C</p>
+									<p>Timezone: {selectedUser.weather.timezone}</p>
+									<p>Windspeed: {selectedUser.weather.current_weather.windspeed}</p>
+									<p>Winddirection: {selectedUser.weather.current_weather.winddirection}</p>
+								</div>
+							)}
+						</CustomerModal>
 					</div>
 					{user.weather ? <p className='randomUsers__item__weatherIcon'> {getWeatherIcon(user.weather.current_weather.weathercode)}</p> : <p>No weather data available</p>}
 				</div>
