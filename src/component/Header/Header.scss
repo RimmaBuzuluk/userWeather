@@ -1,0 +1,28 @@
+.header {
+	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 50px;
+	opacity: 0.75;
+	border-bottom: 1px solid #000000;
+
+	&__logo {
+		font-weight: 800;
+		font-size: 30px;
+		color: rgb(56, 99, 99);
+	}
+	&__navbar-item {
+		color: #666;
+		text-decoration: none;
+		&:not(:last-child) {
+			margin-right: 20px;
+		}
+	}
+}
+
+.is-active {
+	color: #000000;
+	font-weight: 600;
+	border-bottom: 1px solid n #000000;
+}

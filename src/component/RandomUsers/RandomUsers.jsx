@@ -7,18 +7,18 @@ import { addSavedUser } from '../../redux/slices/savedUserSlice';
 import classNames from 'classnames';
 import { CustomerModal } from '../Modal/Modal';
 
-const RandomUsers = () => {
+const RandomUsers = ({ users, status, error, page, isSaved }) => {
 	const dispatch = useDispatch();
-	const { users, status, error, page } = useSelector(state => state.users);
+	// const { users, status, error, page } = useSelector(state => state.users);
 	const savedUsers = useSelector(state => state.savedUsers.savedUsers);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState(null);
 
-	useEffect(() => {
-		if (status === 'idle' || status === 'succeeded') {
-			dispatch(fetchUsers(page));
-		}
-	}, [dispatch, page]);
+	// useEffect(() => {
+	// 	if (status === 'idle' || status === 'succeeded') {
+	// 		dispatch(fetchUsers(page));
+	// 	}
+	// }, [dispatch, page]);
 
 	const handleLoadMore = () => {
 		dispatch(incrementPage());
@@ -94,9 +94,12 @@ const RandomUsers = () => {
 					{user.weather ? <p className='randomUsers__item__weatherIcon'> {getWeatherIcon(user.weather.current_weather.weathercode)}</p> : <p>No weather data available</p>}
 				</div>
 			))}
-			<button className='randomUsers__button' onClick={handleLoadMore}>
-				Load more users
-			</button>
+
+			{!isSaved && (
+				<button className='randomUsers__button' onClick={handleLoadMore}>
+					Load more users
+				</button>
+			)}
 		</div>
 	);
 };
