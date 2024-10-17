@@ -1,3 +1,5 @@
+@import '../../style/mixins.scss';
+
 .modal {
 	&-overlay {
 		position: fixed;
@@ -9,10 +11,11 @@
 		align-items: center;
 		justify-content: center;
 		padding: 40px 10px;
-		overflow-y: auto;
+		overflow: hidden;
 		z-index: 999;
 		opacity: 0;
 		transition: opacity 0.3s;
+
 		&.ReactModal__Overlay--after-open {
 			opacity: 1;
 		}
@@ -22,18 +25,21 @@
 	}
 
 	&-content {
+		@include container;
+
 		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 100%;
-		max-width: 40.625rem;
+		max-width: 40rem;
 		background-color: white;
 		border-radius: 30px;
 		padding: 20px;
-		// box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 		transform: translateY(50px);
 		transition: transform 0.3s;
+		overflow-y: auto;
+		scroll-behavior: smooth;
 
 		&.ReactModal__Content--after-open {
 			transform: translateY(0);
@@ -41,7 +47,6 @@
 		&.ReactModal__Content--before-close {
 			transform: translateY(50px);
 		}
-		height: 50%;
 	}
 
 	&__closeButton {
@@ -54,7 +59,7 @@
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
-
 		border: none;
+		cursor: pointer;
 	}
 }
