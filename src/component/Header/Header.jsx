@@ -7,7 +7,7 @@ const Header = () => {
 		<div className='header'>
 			<div className='header__logo'>Weather</div>
 			<div className='header__menu'>
-				<NavLink to='/' className={({ isActive }) => classNames('header__navbar-item', { 'is-active': isActive })}>
+				<NavLink to='/userWeather/' className={({ isActive }) => classNames('header__navbar-item', { 'is-active': isActive })}>
 					Users
 				</NavLink>
 				<NavLink to='/saved' className={({ isActive }) => classNames('header__navbar-item', { 'is-active': isActive })}>
