@@ -6,7 +6,6 @@ const Header = () => {
 	return (
 		<div className='header'>
 			<div className='header__logo'>Weather</div>
-			<div>User Page</div>
 			<div className='header__menu'>
 				<NavLink to='/' className={({ isActive }) => classNames('header__navbar-item', { 'is-active': isActive })}>
 					Users

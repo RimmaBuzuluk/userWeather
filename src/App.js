@@ -3,7 +3,6 @@ import './App.css';
 import Header from './component/Header/Header.jsx';
 import UserPage from './page/UserPage/UserPage';
 import SavedUserPage from './page/SavedPage/SavedPage.jsx';
-
 function App() {
 	return (
 		<div className='App'>

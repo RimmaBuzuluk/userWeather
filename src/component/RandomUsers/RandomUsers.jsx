@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers, incrementPage } from '../../redux/slices/userSlice';
+import { incrementPage } from '../../redux/slices/userSlice';
 import './RandomUsers.scss';
 import { getWeatherIcon } from '../../utils/weatherIcon';
 import { addSavedUser } from '../../redux/slices/savedUserSlice';
@@ -9,16 +9,9 @@ import { CustomerModal } from '../Modal/Modal';
 
 const RandomUsers = ({ users, status, error, page, isSaved }) => {
 	const dispatch = useDispatch();
-	// const { users, status, error, page } = useSelector(state => state.users);
 	const savedUsers = useSelector(state => state.savedUsers.savedUsers);
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 	const [selectedUser, setSelectedUser] = useState(null);
-
-	// useEffect(() => {
-	// 	if (status === 'idle' || status === 'succeeded') {
-	// 		dispatch(fetchUsers(page));
-	// 	}
-	// }, [dispatch, page]);
 
 	const handleLoadMore = () => {
 		dispatch(incrementPage());
@@ -35,6 +28,8 @@ const RandomUsers = ({ users, status, error, page, isSaved }) => {
 
 	if (status === 'loading' && users.length === 0) return <p>Loading users...</p>;
 	if (status === 'failed') return <p>Error: {error}</p>;
+
+	console.log(users);
 
 	return (
 		<div className='randomUsers'>
@@ -72,7 +67,7 @@ const RandomUsers = ({ users, status, error, page, isSaved }) => {
 						<button className='randomUsers__item__button' onClick={() => handleOpenModal(user)}>
 							Weather
 						</button>
-						<CustomerModal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+						<CustomerModal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} dates={user.weather.hourly.time} temperatures={user.weather.hourly.temperature_2m} latitude={user.location.coordinates.latitude} longitude={user.location.coordinates.longitude}>
 							{selectedUser && (
 								<div>
 									<h2>
