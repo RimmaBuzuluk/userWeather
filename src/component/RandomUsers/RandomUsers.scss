@@ -2,10 +2,15 @@
 
 .randomUsers {
 	@include container();
-	@include page-grid();
-
+	display: flex;
+	flex-direction: column;
 	row-gap: 20px;
-	margin-top: 20px;
+	column-gap: 20px;
+	margin: 20px 0;
+	width: auto;
+	@include on-tablet {
+		@include page-grid();
+	}
 	.randomUsers__item {
 		position: relative;
 		background-color: #f0f0f0;
