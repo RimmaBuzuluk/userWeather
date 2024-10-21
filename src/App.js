@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './component/Header/Header.jsx';
 import UserPage from './page/UserPage/UserPage';
@@ -8,8 +8,9 @@ function App() {
 		<div className='App'>
 			<Header />
 			<Routes>
-				<Route path='/userWeather/' element={<UserPage />} />
+				<Route path='/' element={<UserPage />} />
 				<Route path='/saved' element={<SavedUserPage />} />
+				<Route path='*' element={<Navigate to='/' />} />
 			</Routes>
 		</div>
 	);
