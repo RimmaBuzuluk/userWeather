@@ -70,9 +70,9 @@ const RandomUsers = ({ users, status, error, page, isSaved }) => {
 						<CustomerModal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} dates={user.weather.hourly.time} temperatures={user.weather.hourly.temperature_2m} latitude={user.location.coordinates.latitude} longitude={user.location.coordinates.longitude}>
 							{selectedUser && (
 								<div>
-									<h2>
+									<h3>
 										{selectedUser.name.first} {selectedUser.name.last}
-									</h2>
+									</h3>
 									<h3>
 										{selectedUser.location.country} - {selectedUser.location.city}
 									</h3>

@@ -1,3 +1,5 @@
+@import '../../style/mixins.scss';
+
 .header {
 	background-color: #fff;
 	display: flex;
@@ -10,8 +12,11 @@
 
 	&__logo {
 		font-weight: 800;
-		font-size: 30px;
+		font-size: 20px;
 		color: rgb(56, 99, 99);
+		@include on-tablet {
+			font-size: 30px;
+		}
 	}
 	&__navbar-item {
 		color: #666;
